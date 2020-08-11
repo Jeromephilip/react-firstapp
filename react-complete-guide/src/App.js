@@ -5,17 +5,7 @@ import styled from 'styled-components'
  // learn more about template literals (backticks)
 
  const StyledButton = styled.button`
-  background-color: green;
-  color: white;
-  font: inherit;
-  border: 1px solid blue;
-  padding: 8px;
-  cursor: pointer;
-  &:hover {
-    background-color: lightgreen;
-    color: white;
- }
- `
+ `;
 
 class App extends Component {
   state = {
@@ -61,10 +51,6 @@ class App extends Component {
   }
 
   render () {
-    const style = {
-      
-    };
-
     let persons = null
 
     if (this.state.showPersons) {
@@ -80,14 +66,14 @@ class App extends Component {
 
         </div>
       )
-      style.backgroundColor = 'red'
-      style[':hover'] = {
-        backgroundColor: 'salmon',
-        color: 'white'
-      }
+      // style.backgroundColor = 'red'
+      // style[':hover'] = {
+      //   backgroundColor: 'salmon',
+      //   color: 'white'
+      // }
     }
 
-    let classes = []
+    const classes = []
     if (this.state.persons.length <= 2) {
       classes.push('red')
     }
@@ -100,9 +86,7 @@ class App extends Component {
         <div className="App">
           <h1>Hi, I'm a React App</h1>
           <p className={classes.join(' ')}>This is really working!</p>
-          <StyledButton
-            onClick={this.togglePersonsHandler}>Toggle Persons
-            </StyledButton>
+          <button className="button" onClick={this.togglePersonsHandler}>Toggle Persons</button>
           {persons}
         </div>
     );
