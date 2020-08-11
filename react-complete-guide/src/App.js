@@ -1,6 +1,21 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import styled from 'styled-components'
+ // learn more about template literals (backticks)
+
+ const StyledButton = styled.button`
+  background-color: green;
+  color: white;
+  font: inherit;
+  border: 1px solid blue;
+  padding: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: lightgreen;
+    color: white;
+ }
+ `
 
 class App extends Component {
   state = {
@@ -36,7 +51,7 @@ class App extends Component {
   deletePersonHandler = (personIndex) => {
     // const persons = this.state.persons.slice()
     const persons = [...this.state.persons]
-    persons.splice(personIndex, 1) // splice finds index to remove/add items. Here, it gets the index and removes the element by 1
+    persons.splice(personIndex, 1) // splice finds index and removes/adds items. Here, it gets the index and removes the element by 1
     this.setState({persons: persons})
   }
 
@@ -47,11 +62,7 @@ class App extends Component {
 
   render () {
     const style = {
-      backgroundColor: 'white',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
+      
     };
 
     let persons = null
@@ -60,22 +71,40 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person name={person.name} age={person.age} click={() => this.deletePersonHandler(index)} key={person.id} 
+            return <Person name={person.name} 
+            age={person.age} 
+            click={() => this.deletePersonHandler(index)} 
+            key={person.id} 
             changed={(event) => this.nameChangedHandler(event, person.id)} /> 
           })}
+
         </div>
       )
+      style.backgroundColor = 'red'
+      style[':hover'] = {
+        backgroundColor: 'salmon',
+        color: 'white'
+      }
     }
 
+    let classes = []
+    if (this.state.persons.length <= 2) {
+      classes.push('red')
+    }
+    if (this.state.persons.length <= 1){
+      classes.push('bold')
+    }
+    
+
     return (
-      <div className="App">
-        <h1>Hi, I'm a React App</h1>
-        <p>This is really working!</p>
-        <button 
-          style={style}
-          onClick={this.togglePersonsHandler}>Toggle Persons</button> 
-        {persons}
-      </div>
+        <div className="App">
+          <h1>Hi, I'm a React App</h1>
+          <p className={classes.join(' ')}>This is really working!</p>
+          <StyledButton
+            onClick={this.togglePersonsHandler}>Toggle Persons
+            </StyledButton>
+          {persons}
+        </div>
     );
     // return React.createElement('div', {className: 'App'}, React.createElement('h1', null, 'Does this work now?'));
   }
